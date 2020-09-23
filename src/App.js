@@ -1,7 +1,7 @@
 import React from 'react';
-// import * as BooksAPI from './BooksAPI'
+import { getAll, update } from './BooksAPI';
 import './App.css';
-import BookDisplay from './components/Books';
+import BookOnShelf from './components/BooksOnShelf';
 
 class BooksApp extends React.Component {
 	state = {
@@ -12,9 +12,38 @@ class BooksApp extends React.Component {
 		 * pages, as well as provide a good URL they can bookmark and share.
 		 */
 		showSearchPage: false,
+    bookList: [],
+		searchBookList: [],
+	};
+
+	componentDidMount() {
+		this.getBooks();
+	}
+
+	getBooks() {
+		getAll().then((books) => {
+			this.setState(() => ({
+				bookList: books,
+			}));
+		});
+	}
+	updateBookShelf = (book, shelf) => {
+		update(book, shelf).then(() => {
+			if (!book.hasOwnProperty('shelf')) {
+				const newObject = { shelf: shelf };
+				Object.assign(book, newObject);
+				// this.setState(() => ({
+				// 	searchBookList: [...this.state.bookList],
+				// }));
+				this.getBooks();
+			} else {
+				this.getBooks();
+			}
+		});
 	};
 
 	render() {
+		const { bookList } = this.state;
 		return (
 			<div className="app">
 				{this.state.showSearchPage ? (
@@ -46,40 +75,28 @@ class BooksApp extends React.Component {
 						</div>
 						<div className="list-books-content">
 							<div>
-								<div className="bookshelf">
-									<h2 className="bookshelf-title">Currently Reading</h2>
-									<div className="bookshelf-books">
-										<ol className="books-grid">
-											<li>
-												<BookDisplay />
-											</li>
-										</ol>
-									</div>
-								</div>
-								<div className="bookshelf">
-									<h2 className="bookshelf-title">Want to Read</h2>
-									<div className="bookshelf-books">
-										<ol className="books-grid">
-											<li>
-												<BookDisplay />
-											</li>
-										</ol>
-									</div>
-								</div>
-								<div className="bookshelf">
-									<h2 className="bookshelf-title">Read</h2>
-									<div className="bookshelf-books">
-										<ol className="books-grid">
-                    <li>
-											<BookDisplay />
-										</li>
-										</ol>
-									</div>
-								</div>
+								<BookOnShelf
+									shelfTitle="Currently Reading"
+									booksApi={bookList}
+									shelf="currentlyReading"
+									updateShelf={this.updateBookShelf}
+								/>
+								<BookOnShelf
+									shelfTitle="Want To Read"
+									booksApi={bookList}
+									shelf="wantToRead"
+									updateShelf={this.updateBookShelf}
+								/>
+								<BookOnShelf
+									shelfTitle="Read"
+									booksApi={bookList}
+									shelf="read"
+									updateShelf={this.updateBookShelf}
+								/>
 							</div>
 						</div>
 						<div className="open-search">
-							<button onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
+							<button style={{cursor: "pointer"}} onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
 						</div>
 					</div>
 				)}
