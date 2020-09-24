@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { search } from '../../BooksAPI';
+import { search, update } from '../../BooksAPI';
 import BooksInterface from '../BookInterface/BooksInterface';
 
 export default class SearchPage extends Component {
 	state = {
 		query: '',
-		queryResults: [],
+		queryResults: []
 	};
 
 	updateQuery = (query) => {
@@ -25,7 +25,6 @@ export default class SearchPage extends Component {
 
 	searchAction = (query) => {
 		search(query).then((response) => {
-			console.log('response from books search query is: ', response);
 			//query returns no books
 			if (response.error === 'empty query' && query.length > 0) {
 				this.setState(() => ({
@@ -40,17 +39,32 @@ export default class SearchPage extends Component {
 			}
 		});
 	};
-	getBookAndShelf = (book, shelf) => {
-		console.log('getBookAndShelf', book, 'shelf is: ', shelf);
-		this.props.updateShelf(book, shelf);
+
+	updateBookShelf = (book, shelf) => {
+		update(book, shelf).then(() => {
+            const getQuery = this.state.queryResults
+			const index = getQuery.findIndex((q) => q.id === book.id);
+			if (index >= 0) {
+				getQuery[index].shelf = shelf;
+			}
+			this.setState({ getQuery });
+		});
 	};
+
+	getBookAndShelf = (book, shelf) => {
+		this.updateBookShelf(book, shelf);
+	};
+
 	render() {
 		const { query, queryResults } = this.state;
 		const emptySearchField = <h1>Search for books based on author or title</h1>;
-		const booksFromQuery =
+		const searchFilter =
 			query === ''
 				? ''
-				: queryResults.filter(q => q.title.toLowerCase().includes(query.toLocaleLowerCase()))
+				: queryResults.filter((q) => {
+						return q.title.toLowerCase().includes(query.toLowerCase());
+				  });
+
 		return (
 			<div className="search-books">
 				<div className="search-books-bar">
@@ -68,21 +82,22 @@ export default class SearchPage extends Component {
 				<div className="search-books-results">
 					{
 						<span>
-							Now showing {booksFromQuery.length} of {queryResults.length} Books
+							Now showing {searchFilter.length} of {queryResults.length} Books
 						</span>
 					}
 					<ol className="books-grid">
 						{query.length > 0
-							? booksFromQuery.map((bookData) => {
+							? searchFilter.map((bookData) => {
+                                
 									return (
 										<li key={bookData.id}>
 											<BooksInterface
 												backgroundImage={bookData.imageLinks.thumbnail}
-												shelf={bookData.shelf}
 												bookTitle={bookData.title}
 												bookAuthors={bookData.authors}
+												shelf={bookData.shelf}
 												onChange={(e) => {
-													this.getBookAndShelf(bookData, e.target.value);
+													this.updateBookShelf(bookData, e.target.value);
 												}}
 											/>
 										</li>
