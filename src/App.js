@@ -2,6 +2,7 @@ import React from 'react';
 import { getAll, update } from './BooksAPI';
 import './App.css';
 import BookOnShelf from './components/BooksOnShelf';
+import SearchPage from './components/SearchPage/SearchPage';
 
 class BooksApp extends React.Component {
 	state = {
@@ -98,7 +99,9 @@ class BooksApp extends React.Component {
 						<div className="open-search">
 							<button style={{cursor: "pointer"}} onClick={() => this.setState({ showSearchPage: true })}>Add a book</button>
 						</div>
+						<SearchPage />
 					</div>
+					
 				)}
 			</div>
 		);

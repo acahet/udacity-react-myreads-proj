@@ -16,7 +16,6 @@ export default class BookOnShelf extends Component {
 						{booksApi
 							.filter((bshelf) => bshelf.shelf === shelf)
 							.map((bookData) => {
-								console.log(Object.keys(bookData.authors), 'shelfLength');
 								return (
 									<li key={bookData.id}>
 										<BooksInterface
