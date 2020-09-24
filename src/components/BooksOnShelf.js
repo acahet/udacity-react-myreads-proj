@@ -21,11 +21,11 @@ export default class BookOnShelf extends Component {
 										<BooksInterface
 											backgroundImage={bookData.imageLinks.thumbnail}
 											shelf={shelf}
+											bookTitle={bookData.title}
+											bookAuthors={bookData.authors}
 											onChange={(e) => {
 												this.getBookAndShelf(bookData, e.target.value);
 											}}
-											bookTitle={bookData.title}
-											bookAuthors={bookData.authors}
 										/>
 									</li>
 								);
