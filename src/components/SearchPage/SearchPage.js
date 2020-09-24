@@ -50,16 +50,7 @@ export default class SearchPage extends Component {
 		const booksFromQuery =
 			query === ''
 				? ''
-				: queryResults.filter((q) => {
-						if (!q.hasOwnProperty('authors')) {
-							return q.title.toLowerCase().includes(query.toLocaleLowerCase());
-						} else {
-							return (
-								q.title.toLowerCase().includes(query.toLocaleLowerCase()) ||
-								q.authors.toLowerCase().includes(query.toLocaleLowerCase())
-							);
-						}
-				  });
+				: queryResults.filter(q => q.title.toLowerCase().includes(query.toLocaleLowerCase()))
 		return (
 			<div className="search-books">
 				<div className="search-books-bar">
