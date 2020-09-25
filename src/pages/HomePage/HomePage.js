@@ -25,7 +25,7 @@ const HomePage = ({ booksApi, onChange }) => {
 					<BookOnShelf shelfTitle="Read" booksApi={booksApi} shelf="read" updateShelf={onChange} />
 				</div>
 			</div>
-			<Link className="open-search" style={{ cursor: 'pointer' }} to="/search">
+			<Link id="search-page" className="open-search" style={{ cursor: 'pointer' }} to="/search">
 				Add a book
 			</Link>
 		</div>
