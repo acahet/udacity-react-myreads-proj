@@ -1,5 +1,4 @@
 import React from 'react';
-import ShelfChanger from '../ShelfChanger/ShelfChanger';
 const BooksInterface = ({ backgroundImage, shelf, onChange, bookTitle, bookAuthors }) => {
 	return (
 		<div className="book">
@@ -13,7 +12,16 @@ const BooksInterface = ({ backgroundImage, shelf, onChange, bookTitle, bookAutho
 					}}
 				/>
 				<div className="book-shelf-changer">
-					<ShelfChanger value={shelf} onChange={onChange} />
+					{/* <ShelfChanger value={shelf} onChange={onChange} /> */}
+					<select value={shelf ? shelf : 'none'} onChange={onChange}>
+						<option value="move" disabled>
+							Move to...
+						</option>
+						<option value="currentlyReading">Currently Reading</option>
+						<option value="wantToRead">Want to Read</option>
+						<option value="read">Read</option>
+						<option value="none">None</option>
+					</select>
 				</div>
 			</div>
 			<div className="book-title">{bookTitle}</div>

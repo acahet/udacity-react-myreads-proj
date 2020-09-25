@@ -1,69 +1,35 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { search, update } from '../../BooksAPI';
+import { getAll, search, update } from '../../BooksAPI';
 import BooksInterface from '../BookInterface/BooksInterface';
 
 export default class SearchPage extends Component {
 	state = {
-		query: '',
-		queryResults: []
+		query: ''
 	};
 
-	updateQuery = (query) => {
-		if (query === null || query === '') {
-			this.setState(() => ({
-				query: '',
-				queryResults: [],
-			}));
-		} else {
-			this.searchAction(query);
-			this.setState({
-				query: query,
-			});
-		}
-	};
+	handleChange=(query)=>{
+		this.setState(() =>({
+			query: query
+		}))
+	}
+	clearQuery=()=> {
+		this.handleChange('')
+	}
+	
 
-	searchAction = (query) => {
-		search(query).then((response) => {
-			//query returns no books
-			if (response.error === 'empty query' && query.length > 0) {
-				this.setState(() => ({
-					queryResults: [],
-				}));
-
-				return;
-			} else {
-				return this.setState(() => ({
-					queryResults: response,
-				}));
-			}
-		});
-	};
-
-	updateBookShelf = (book, shelf) => {
-		update(book, shelf).then(() => {
-            const getQuery = this.state.queryResults
-			const index = getQuery.findIndex((q) => q.id === book.id);
-			if (index >= 0) {
-				getQuery[index].shelf = shelf;
-			}
-			this.setState({ getQuery });
-		});
-	};
-
-	getBookAndShelf = (book, shelf) => {
-		this.updateBookShelf(book, shelf);
-	};
+	
 
 	render() {
-		const { query, queryResults } = this.state;
+		const { query } = this.state;
+		const { books } = this.props
 		const emptySearchField = <h1>Search for books based on author or title</h1>;
 		const searchFilter =
 			query === ''
 				? ''
-				: queryResults.filter((q) => {
-						return q.title.toLowerCase().includes(query.toLowerCase());
-				  });
+				: books.filter((q)=>(
+					q.title.toLowerCase().includes(query.toLowerCase())
+				))
 
 		return (
 			<div className="search-books">
@@ -75,20 +41,19 @@ export default class SearchPage extends Component {
 							placeholder="Search by title or author"
 							value={query}
 							autoFocus={true}
-							onChange={(e) => this.updateQuery(e.target.value)}
+							onChange={(event) => this.handleChange(event.target.value)}
 						/>
 					</div>
 				</div>
 				<div className="search-books-results">
 					{
 						<span>
-							Now showing {searchFilter.length} of {queryResults.length} Books
+							Now showing {searchFilter.length} of {books.length} Books
 						</span>
 					}
 					<ol className="books-grid">
 						{query.length > 0
 							? searchFilter.map((bookData) => {
-                                
 									return (
 										<li key={bookData.id}>
 											<BooksInterface
@@ -97,7 +62,7 @@ export default class SearchPage extends Component {
 												bookAuthors={bookData.authors}
 												shelf={bookData.shelf}
 												onChange={(e) => {
-													this.updateBookShelf(bookData, e.target.value);
+													this.getBookAndShelf(bookData, e.target.value);
 												}}
 											/>
 										</li>
