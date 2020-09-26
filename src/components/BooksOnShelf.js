@@ -3,7 +3,6 @@ import BooksInterface from './BookInterface/BooksInterface';
 
 export default class BookOnShelf extends Component {
 	getBookAndShelf = (book, shelf) => {
-		console.log('getBookAndShelf', book, 'shelf is: ', shelf);
 		this.props.updateShelf(book, shelf);
 	};
 	render() {
