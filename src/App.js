@@ -26,7 +26,6 @@ class BooksApp extends React.Component {
 	}
 	//looks for select book and updates shelf
 	updateBookShelf = (book, shelf) => {
-		
 		update(book, shelf).then(() => {
 			this.setState((currentState) => ({
 				bookList: currentState.bookList
@@ -41,37 +40,30 @@ class BooksApp extends React.Component {
 					.concat({ ...book, shelf }),
 			}));
 		});
-		// this.compare(this.state.bookList, this.state.searchResult)
 	};
-
-	compare(array1, array2) {
-		array1.forEach((e1) => {
-			array2.forEach((e2) => {
-				if (e1.id === e2.id) {
-					this.setState((c) => ({
-						array2: array2.concat(...array1, e2.shelf),
-					}));
-				}
-			});
-		});
-	}
 
 	getSearch = (query) => {
 		search(query).then((results) => {
-			if (results.error === 'empty query' && query.length > 0) {
-				this.setState(() => ({
-					query: '',
-					searchResult: [],
-				}));
-				return false;
-			} else {
-				this.compare(this.state.bookList, this.state.searchResult)
-				this.setState(() => ({
-					searchResult: results,
-				}));
-			}
+			console.log('shelf ', results);
+			//during the search books do not have a shelf
+			// use for each to retrieve each book
+			results.forEach((book) => {
+				let booksWithShelf = this.state.bookList;
+				//use for each to retriev e each for that already has a shelf
+				booksWithShelf.forEach((hasShelf) => {
+					// compare ID from the books with shelf matches with search results
+					if(hasShelf.id===book.id) {
+						//match occurs and shelf is added to book/s is search
+						book.shelf = hasShelf.shelf
+					} 
+				});
+			});
+			this.setState(() => ({
+				searchResult: results
+			}))
 		});
 	};
+
 	handleChange = (query) => {
 		if (query === null || query === '') {
 			this.setState(() => ({
