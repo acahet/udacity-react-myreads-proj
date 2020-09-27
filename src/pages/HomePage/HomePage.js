@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types'
 import BookFunctionality from '../../components/BookFunctionality';
 import BookShelfBody from '../../components/BookShelfBody';
 
@@ -50,4 +51,9 @@ export default class HomePage extends Component {
 			</div>
 		);
 	}
+}
+HomePage.propTypes = {
+	currentlyReading: PropTypes.array,
+	wantToRead: PropTypes.array,
+	read: PropTypes.array
 }

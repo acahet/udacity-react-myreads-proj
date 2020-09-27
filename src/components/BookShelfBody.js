@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types'
 const BookShelfBody = ({ title, children }) => {
 	return (
 		<div className="bookshelf">
@@ -8,5 +8,8 @@ const BookShelfBody = ({ title, children }) => {
 		</div>
 	);
 };
-
+BookShelfBody.propTypes = {
+	title: PropTypes.string.isRequired,
+	children: PropTypes.array
+}
 export default BookShelfBody;

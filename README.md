@@ -21,6 +21,13 @@ To get started developing right away:
 │   ├── favicon.ico # React Icon, You may change if you wish.
 │   └── index.html # DO NOT MODIFY
 └── src
+    ├── components
+        ├── BookFunctionality
+            ├── # has the function to get book and update shelf and also props to display book correctly
+        ├── BookShelfBody
+            ├── BooksShelfBody.js # used for homepage - for title for shelf and books in shelf - children arg 
+        ├── BookInterface
+            ├── # only the books html code
     ├── App.css # Styles for your app. Feel free to customize this as you desire.
     ├── App.js # This is the root of your app. Contains static HTML right now.
     ├── App.test.js # Used for testing. Provided with Create React App. Testing is encouraged, but not required.
@@ -29,6 +36,11 @@ To get started developing right away:
     │   ├── add.svg
     │   ├── arrow-back.svg
     │   └── arrow-drop-down.svg
+    ├── pages
+        ├── HomePage
+            ├──HomePage.js # where classnames to render and display shelf with content - if any
+        ├── SearchPage
+            ├──SearchPage.js # the code for the search page is located there
     ├── index.css # Global styles. You probably won't need to change anything here.
     └── index.js # You should not need to modify this file. It is used for DOM rendering only.
 ```

@@ -1,26 +1,31 @@
-import React, { Component } from 'react';
-import BooksInterface from './BooksInterface';
+import React from 'react';
+import PropTypes from 'prop-types'
+import BookInterface from './BookInterface';
 
-export default class BookFunctionality extends Component {
-	getBookAndShelf = (book, shelf) => {
-		this.props.updateShelf(book, shelf);
+const BookFunctionality = ({ bookData, updateShelf }) => {
+	const getBookAndShelf = (book, shelf) => {
+		updateShelf(book, shelf);
 	};
-	render() {
-		const { bookData } = this.props;
-		return (
-			<ol className="books-grid">
-				{
-					<BooksInterface
-						backgroundImage={bookData.imageLinks !== undefined ? bookData.imageLinks.thumbnail : null}
-						bookTitle={bookData.title}
-						bookAuthors={bookData.authors}
-						shelf={bookData.shelf}
-						onChange={(e) => {
-							this.getBookAndShelf(bookData, e.target.value);
-						}}
-					/>
-				}
-			</ol>
-		);
-	}
+
+	return (
+		<ol className="books-grid">
+			{
+				<BookInterface
+					backgroundImage={bookData.imageLinks !== undefined ? bookData.imageLinks.thumbnail : null}
+					bookTitle={bookData.title}
+					bookAuthors={bookData.authors}
+					shelf={bookData.shelf}
+					onChange={(e) => {
+						getBookAndShelf(bookData, e.target.value);
+					}}
+				/>
+			}
+		</ol>
+	);
+};
+BookFunctionality.propTypes = {
+    getBookAndShelf: PropTypes.func
 }
+
+
+export default BookFunctionality;

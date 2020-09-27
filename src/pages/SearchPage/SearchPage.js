@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types'
 import BookFunctionality from '../../components/BookFunctionality';
 
 export default class SearchPage extends Component {
@@ -35,7 +36,6 @@ export default class SearchPage extends Component {
 				<div className="search-books-results">
 					{this.props.query.length > 0 && this.props.searchResult.length !== undefined ? (
 						<span>
-							{' '}
 							<strong>Based on your search we have found {searchFilter.length} book(s)</strong>
 						</span>
 					) : (
@@ -59,4 +59,9 @@ export default class SearchPage extends Component {
 			</div>
 		);
 	}
+}
+SearchPage.propTypes = {
+	emptySearchField: PropTypes.string,
+	searchFilter: PropTypes.any,
+
 }
