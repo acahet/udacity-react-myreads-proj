@@ -84,10 +84,6 @@ class BooksApp extends React.Component {
 		}
 	};
 
-	clearQuery(){
-		this.handleChange('')
-	}
-
 	render() {
 		const { bookList } = this.state;
 		return (
