@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 
 import './App.css';
 import { getAll, search, update } from './BooksAPI';
-import SearchPage from './components/SearchPage/SearchPage';
+import SearchPage from './pages/SearchPage/SearchPage';
 import LandingPage from './pages/HomePage/HomePage';
 
 class BooksApp extends React.Component {
@@ -44,23 +44,29 @@ class BooksApp extends React.Component {
 
 	getSearch = (query) => {
 		search(query).then((results) => {
-			console.log('shelf ', results);
 			//during the search books do not have a shelf
 			// use for each to retrieve each book
-			results.forEach((book) => {
-				let booksWithShelf = this.state.bookList;
-				//use for each to retriev e each for that already has a shelf
-				booksWithShelf.forEach((hasShelf) => {
-					// compare ID from the books with shelf matches with search results
-					if(hasShelf.id===book.id) {
-						//match occurs and shelf is added to book/s is search
-						book.shelf = hasShelf.shelf
-					} 
+			if (results.length !== undefined) {
+				results.forEach((books) => {
+					let booksWithShelf = this.state.bookList;
+					//use for each to retrieve shelf info
+					booksWithShelf.forEach((hasShelf) => {
+						// compare ID from the books with shelf matches with search results
+						if(hasShelf.id===books.id) {
+							//match occurs and shelf is added to book/s is search
+							const addToShelf = books.shelf = hasShelf.shelf
+							return addToShelf
+						} 
+					});
 				});
-			});
-			this.setState(() => ({
-				searchResult: results
-			}))
+				this.setState(() => ({
+					searchResult: results
+				}))
+			}
+			else {
+				return false;
+			}
+			
 		});
 	};
 
@@ -71,13 +77,16 @@ class BooksApp extends React.Component {
 				books: [],
 			}));
 		} else {
-			// this.searchBooks(query);
 			this.getSearch(query);
 			this.setState({
 				query: query,
 			});
 		}
 	};
+
+	clearQuery(){
+		this.handleChange('')
+	}
 
 	render() {
 		const { bookList } = this.state;
@@ -100,6 +109,7 @@ class BooksApp extends React.Component {
 								this.handleChange(e.target.value);
 							}}
 							onChange={this.updateBookShelf}
+							onClick={this.clearQuery}
 						/>
 					)}
 				/>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import BooksInterface from './BookInterface/BooksInterface';
+import BooksInterface from '../BookInterface/BooksInterface';
 
 export default class BookOnShelf extends Component {
 	getBookAndShelf = (book, shelf) => {
@@ -18,7 +18,7 @@ export default class BookOnShelf extends Component {
 								return (
 									<li key={bookData.id}>
 										<BooksInterface
-											backgroundImage={bookData.imageLinks.thumbnail}
+											backgroundImage={bookData.imageLinks !== undefined ? bookData.imageLinks.thumbnail : null}
 											shelf={shelf}
 											bookTitle={bookData.title}
 											bookAuthors={bookData.authors}

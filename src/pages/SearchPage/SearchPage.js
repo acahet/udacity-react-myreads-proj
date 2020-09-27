@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import BooksInterface from '../BookInterface/BooksInterface';
+import BooksInterface from '../../components/BookInterface/BooksInterface';
 
 export default class SearchPage extends Component {
 	render() {
@@ -9,7 +9,14 @@ export default class SearchPage extends Component {
 			this.props.query === ''
 				? ''
 				: this.props.searchResult.filter((q) => {
-						return q.title.toLowerCase().includes(this.props.query.toLowerCase());
+						if (!q.hasOwnProperty('authors')) {
+							return q.title.toLowerCase().includes(this.props.query.toLowerCase());
+						} else {
+							return (
+								q.title.toLowerCase().includes(this.props.query.toLowerCase()) ||
+								q.authors.includes(this.props.query.toLowerCase())
+							);
+						}
 				  });
 		return (
 			<div className="search-books">
@@ -26,13 +33,26 @@ export default class SearchPage extends Component {
 					</div>
 				</div>
 				<div className="search-books-results">
+					{this.props.query.length > 0 && this.props.searchResult.length !== undefined ? (
+						<span>
+							{' '}
+							<strong>Based on your search we have found {searchFilter.length} book(s)</strong>
+						</span>
+					) : (
+						''
+					)}
+
 					<ol className="books-grid">
 						{this.props.query.length > 0
 							? searchFilter.map((bookData) => {
 									return (
 										<li key={bookData.id}>
 											<BooksInterface
-												backgroundImage={bookData.imageLinks.thumbnail}
+												backgroundImage={
+													bookData.imageLinks !== undefined
+														? bookData.imageLinks.thumbnail
+														: null
+												}
 												bookTitle={bookData.title}
 												bookAuthors={bookData.authors}
 												shelf={bookData.shelf}
