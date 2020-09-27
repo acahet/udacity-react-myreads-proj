@@ -52,21 +52,19 @@ class BooksApp extends React.Component {
 					//use for each to retrieve shelf info
 					booksWithShelf.forEach((hasShelf) => {
 						// compare ID from the books with shelf matches with search results
-						if(hasShelf.id===books.id) {
+						if (hasShelf.id === books.id) {
 							//match occurs and shelf is added to book/s is search
-							const addToShelf = books.shelf = hasShelf.shelf
-							return addToShelf
-						} 
+							const addToShelf = (books.shelf = hasShelf.shelf);
+							return addToShelf;
+						}
 					});
 				});
 				this.setState(() => ({
-					searchResult: results
-				}))
-			}
-			else {
+					searchResult: results,
+				}));
+			} else {
 				return false;
 			}
-			
 		});
 	};
 
@@ -83,10 +81,6 @@ class BooksApp extends React.Component {
 			});
 		}
 	};
-
-	clearQuery(){
-		this.handleChange('')
-	}
 
 	render() {
 		const { bookList } = this.state;
@@ -109,7 +103,6 @@ class BooksApp extends React.Component {
 								this.handleChange(e.target.value);
 							}}
 							onChange={this.updateBookShelf}
-							onClick={this.clearQuery}
 						/>
 					)}
 				/>

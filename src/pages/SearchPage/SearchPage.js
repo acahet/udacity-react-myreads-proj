@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import BooksInterface from '../../components/BookInterface/BooksInterface';
+import PropTypes from 'prop-types'
+import BookFunctionality from '../../components/BookFunctionality';
 
 export default class SearchPage extends Component {
 	render() {
@@ -35,38 +36,32 @@ export default class SearchPage extends Component {
 				<div className="search-books-results">
 					{this.props.query.length > 0 && this.props.searchResult.length !== undefined ? (
 						<span>
-							{' '}
 							<strong>Based on your search we have found {searchFilter.length} book(s)</strong>
 						</span>
 					) : (
 						''
 					)}
-
 					<ol className="books-grid">
 						{this.props.query.length > 0
-							? searchFilter.map((bookData) => {
-									return (
-										<li key={bookData.id}>
-											<BooksInterface
-												backgroundImage={
-													bookData.imageLinks !== undefined
-														? bookData.imageLinks.thumbnail
-														: null
-												}
-												bookTitle={bookData.title}
-												bookAuthors={bookData.authors}
-												shelf={bookData.shelf}
-												onChange={(e) => {
-													this.props.onChange(bookData, e.target.value);
-												}}
-											/>
-										</li>
-									);
-							  })
-							: emptySearchField}
-					</ol>
-				</div>
+                            ? 
+							searchFilter.map((bookData) =>{
+								return (
+									<li key={bookData.id}>
+										<BookFunctionality bookData={bookData} updateShelf={this.props.onChange} />
+									</li>
+								)
+							})
+							: emptySearchField
+						}
+						</ol>
+					</div>
+
 			</div>
 		);
 	}
+}
+SearchPage.propTypes = {
+	emptySearchField: PropTypes.string,
+	searchFilter: PropTypes.any,
+
 }
