@@ -24,7 +24,9 @@ const BookFunctionality = ({ bookData, updateShelf }) => {
 	);
 };
 BookFunctionality.propTypes = {
-    getBookAndShelf: PropTypes.func
+    getBookAndShelf: PropTypes.func,
+    updateShelf: PropTypes.func,
+    bookData: PropTypes.object
 }
 
 
