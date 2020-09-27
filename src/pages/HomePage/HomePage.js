@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import BookOnShelf from '../../components/BooksOnShelf';
+import BookOnShelf from '../../components/BookShelf/BooksOnShelf';
 
 const HomePage = ({ booksApi, onChange }) => {
 	return (

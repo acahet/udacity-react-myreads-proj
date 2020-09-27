@@ -12,7 +12,6 @@ const BooksInterface = ({ backgroundImage, shelf, onChange, bookTitle, bookAutho
 					}}
 				/>
 				<div className="book-shelf-changer">
-					{/* <ShelfChanger value={shelf} onChange={onChange} /> */}
 					<select value={shelf !==undefined ? shelf : 'none'} onChange={onChange}>
 						<option value="move" disabled>
 							Move to...
