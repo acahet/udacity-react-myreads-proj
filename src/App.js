@@ -105,7 +105,6 @@ class BooksApp extends React.Component {
 								this.handleChange(e.target.value);
 							}}
 							onChange={this.updateBookShelf}
-							onClick={this.clearQuery}
 						/>
 					)}
 				/>

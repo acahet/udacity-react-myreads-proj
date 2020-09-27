@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import BooksInterface from '../../components/BookInterface/BooksInterface';
+import BookSearch from '../../components/BookSearch/BookSearch';
 
 export default class SearchPage extends Component {
 	render() {
@@ -41,30 +42,14 @@ export default class SearchPage extends Component {
 					) : (
 						''
 					)}
-
-					<ol className="books-grid">
-						{this.props.query.length > 0
-							? searchFilter.map((bookData) => {
-									return (
-										<li key={bookData.id}>
-											<BooksInterface
-												backgroundImage={
-													bookData.imageLinks !== undefined
-														? bookData.imageLinks.thumbnail
-														: null
-												}
-												bookTitle={bookData.title}
-												bookAuthors={bookData.authors}
-												shelf={bookData.shelf}
-												onChange={(e) => {
-													this.props.onChange(bookData, e.target.value);
-												}}
-											/>
-										</li>
-									);
-							  })
-							: emptySearchField}
-					</ol>
+					{
+						<BookSearch
+							query={this.props.query}
+							searchFilter={searchFilter}
+							emptySearchField={emptySearchField}
+							updateShelf={this.props.onChange}
+						/>
+					}
 				</div>
 			</div>
 		);
