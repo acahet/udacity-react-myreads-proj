@@ -25,7 +25,7 @@ To get started developing right away:
         ├── BookFunctionality
             ├── # has the function to get book and update shelf and also props to display book correctly
         ├── BookShelfBody
-            ├── BooksShelfBody.js # used for homepage - for title for shelf and books in shelf - children arg 
+            ├── # used for homepage - for title for shelf and books in shelf - children arg 
         ├── BookInterface
             ├── # only the books html code
     ├── App.css # Styles for your app. Feel free to customize this as you desire.
