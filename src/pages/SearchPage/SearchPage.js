@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import BooksInterface from '../../components/BookInterface/BooksInterface';
-import BookSearch from '../../components/BookSearch/BookSearch';
+import BookFunctionality from '../../components/BookFunctionality';
 
 export default class SearchPage extends Component {
 	render() {
@@ -42,15 +41,21 @@ export default class SearchPage extends Component {
 					) : (
 						''
 					)}
-					{
-						<BookSearch
-							query={this.props.query}
-							searchFilter={searchFilter}
-							emptySearchField={emptySearchField}
-							updateShelf={this.props.onChange}
-						/>
-					}
-				</div>
+					<ol className="books-grid">
+						{this.props.query.length > 0
+                            ? 
+							searchFilter.map((bookData) =>{
+								return (
+									<li key={bookData.id}>
+										<BookFunctionality bookData={bookData} updateShelf={this.props.onChange} />
+									</li>
+								)
+							})
+							: emptySearchField
+						}
+						</ol>
+					</div>
+
 			</div>
 		);
 	}
