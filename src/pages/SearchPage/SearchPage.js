@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import BookFunctionality from '../../components/BookFunctionality';
 
 export default class SearchPage extends Component {
 	render() {
+		const { query, searchResult, inputOnChange, onChange } = this.props;
 		const emptySearchField = <h1>Search for books based on author or title</h1>;
 		const searchFilter =
-			this.props.query === ''
+			query === ''
 				? ''
-				: this.props.searchResult.filter((q) => {
+				: searchResult.filter((q) => {
 						if (!q.hasOwnProperty('authors')) {
-							return q.title.toLowerCase().includes(this.props.query.toLowerCase());
+							return q.title.toLowerCase().includes(query.toLowerCase());
 						} else {
 							return (
-								q.title.toLowerCase().includes(this.props.query.toLowerCase()) ||
-								q.authors.includes(this.props.query.toLowerCase())
+								q.title.toLowerCase().includes(query.toLowerCase()) ||
+								q.authors.includes(query.toLowerCase())
 							);
 						}
 				  });
@@ -27,14 +28,14 @@ export default class SearchPage extends Component {
 						<input
 							type="text"
 							placeholder="Search by title or author"
-							value={this.props.query}
+							value={query}
 							autoFocus={true}
-							onChange={this.props.inputOnChange}
+							onChange={inputOnChange}
 						/>
 					</div>
 				</div>
 				<div className="search-books-results">
-					{this.props.query.length > 0 && this.props.searchResult.length !== undefined ? (
+					{query.length > 0 && searchResult.length !== undefined ? (
 						<span>
 							<strong>Based on your search we have found {searchFilter.length} book(s)</strong>
 						</span>
@@ -42,26 +43,25 @@ export default class SearchPage extends Component {
 						''
 					)}
 					<ol className="books-grid">
-						{this.props.query.length > 0
-                            ? 
-							searchFilter.map((bookData) =>{
-								return (
-									<li key={bookData.id}>
-										<BookFunctionality bookData={bookData} updateShelf={this.props.onChange} />
-									</li>
-								)
-							})
-							: emptySearchField
-						}
-						</ol>
-					</div>
-
+						{query.length > 0
+							? searchFilter.map((bookData) => {
+									return (
+										<li key={bookData.id}>
+											<BookFunctionality bookData={bookData} updateShelf={onChange} />
+										</li>
+									);
+							  })
+							: emptySearchField}
+					</ol>
+				</div>
 			</div>
 		);
 	}
 }
 SearchPage.propTypes = {
 	emptySearchField: PropTypes.string,
-	searchFilter: PropTypes.any,
-
-}
+	searchFilter: PropTypes.array,
+	bookData: PropTypes.object,
+	query: PropTypes.string,
+	inputOnChange: PropTypes.func,
+};

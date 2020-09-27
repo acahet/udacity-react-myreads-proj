@@ -6,9 +6,11 @@ import BookShelfBody from '../../components/BookShelfBody';
 
 export default class HomePage extends Component {
 	render() {
-		const currentlyReading = this.props.booksApi.filter((shelf) => shelf.shelf === 'currentlyReading');
-		const wantToRead = this.props.booksApi.filter((shelf) => shelf.shelf === 'wantToRead');
-		const read = this.props.booksApi.filter((shelf) => shelf.shelf === 'read');
+		const { booksApi, onChange } = this.props
+
+		const currentlyReading = booksApi.filter((shelf) => shelf.shelf === 'currentlyReading');
+		const wantToRead = booksApi.filter((shelf) => shelf.shelf === 'wantToRead');
+		const read = booksApi.filter((shelf) => shelf.shelf === 'read');
 		return (
 			<div className="list-books">
 				<div className="list-books-title">
@@ -20,7 +22,7 @@ export default class HomePage extends Component {
 							{currentlyReading.map((bookData) => {
 								return (
 									<li key={bookData.id}>
-										<BookFunctionality bookData={bookData} updateShelf={this.props.onChange} />
+										<BookFunctionality bookData={bookData} updateShelf={onChange} />
 									</li>
 								);
 							})}
@@ -29,7 +31,7 @@ export default class HomePage extends Component {
 							{wantToRead.map((bookData) => {
 								return (
 									<li key={bookData.id}>
-										<BookFunctionality bookData={bookData} updateShelf={this.props.onChange} />
+										<BookFunctionality bookData={bookData} updateShelf={onChange} />
 									</li>
 								);
 							})}
@@ -38,7 +40,7 @@ export default class HomePage extends Component {
 							{read.map((bookData) => {
 								return (
 									<li key={bookData.id}>
-										<BookFunctionality bookData={bookData} updateShelf={this.props.onChange} />
+										<BookFunctionality bookData={bookData} updateShelf={onChange} />
 									</li>
 								);
 							})}
@@ -55,5 +57,7 @@ export default class HomePage extends Component {
 HomePage.propTypes = {
 	currentlyReading: PropTypes.array,
 	wantToRead: PropTypes.array,
-	read: PropTypes.array
+	read: PropTypes.array,
+	bookData: PropTypes.object,
+	updateShelf: PropTypes.func
 }
