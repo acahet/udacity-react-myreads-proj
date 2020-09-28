@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 
-const BookInterface = ({ backgroundImage, shelf, onChange, bookTitle, bookAuthors }) => {
+const Book = ({ backgroundImage, shelf, onChange, bookTitle, bookAuthors }) => {
 	return (
 		<div className="bookshelf-books">
 			<div className="book">
@@ -33,11 +33,11 @@ const BookInterface = ({ backgroundImage, shelf, onChange, bookTitle, bookAuthor
 	);
 };
 
-BookInterface.propTypes = {
+Book.propTypes = {
 	backgroundImage: PropTypes.string,
 	shelf: PropTypes.string,
 	onChange: PropTypes.func,
 	bookTitle: PropTypes.string,
-	bookAuthors: PropTypes.array
+	bookAuthors: PropTypes.arrayOf(PropTypes.string)
 }
-export default BookInterface;
+export default Book;

@@ -48,14 +48,14 @@ class BooksApp extends React.Component {
 			// use for each to retrieve each book
 			if (results.length !== undefined) {
 				results.forEach((books) => {
-					let booksWithShelf = this.state.bookList;
+					let booksWithShelf = [...this.state.bookList];
 					//use for each to retrieve shelf info
 					booksWithShelf.forEach((hasShelf) => {
 						// compare ID from the books with shelf matches with search results
 						if (hasShelf.id === books.id) {
 							//match occurs and shelf is added to book/s is search
-							const addToShelf = (books.shelf = hasShelf.shelf);
-							return addToShelf;
+							books.shelf = hasShelf.shelf;
+							
 						}
 					});
 				});

@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-import BookInterface from './BookInterface';
+import BookInterface from './Book';
 
-const BookFunctionality = ({ bookData, updateShelf }) => {
-	const getBookAndShelf = (book, shelf) => {
+const BookContainer = ({ bookData, updateShelf }) => {
+	const onChange = (book, shelf) => {
 		updateShelf(book, shelf);
 	};
 
@@ -16,18 +16,18 @@ const BookFunctionality = ({ bookData, updateShelf }) => {
 					bookAuthors={bookData.authors}
 					shelf={bookData.shelf}
 					onChange={(e) => {
-						getBookAndShelf(bookData, e.target.value);
+						onChange(bookData, e.target.value);
 					}}
 				/>
 			}
 		</ol>
 	);
 };
-BookFunctionality.propTypes = {
+BookContainer.propTypes = {
     getBookAndShelf: PropTypes.func,
     updateShelf: PropTypes.func,
     bookData: PropTypes.object
 }
 
 
-export default BookFunctionality;
+export default BookContainer;

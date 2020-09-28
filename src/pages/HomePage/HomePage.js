@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types'
-import BookFunctionality from '../../components/BookFunctionality';
+import BookContainer from '../../components/BookContainer';
 import BookShelfBody from '../../components/BookShelfBody';
 
 export default class HomePage extends Component {
@@ -22,7 +22,7 @@ export default class HomePage extends Component {
 							{currentlyReading.map((bookData) => {
 								return (
 									<li key={bookData.id}>
-										<BookFunctionality bookData={bookData} updateShelf={onChange} />
+										<BookContainer bookData={bookData} updateShelf={onChange} />
 									</li>
 								);
 							})}
@@ -31,7 +31,7 @@ export default class HomePage extends Component {
 							{wantToRead.map((bookData) => {
 								return (
 									<li key={bookData.id}>
-										<BookFunctionality bookData={bookData} updateShelf={onChange} />
+										<BookContainer bookData={bookData} updateShelf={onChange} />
 									</li>
 								);
 							})}
@@ -40,7 +40,7 @@ export default class HomePage extends Component {
 							{read.map((bookData) => {
 								return (
 									<li key={bookData.id}>
-										<BookFunctionality bookData={bookData} updateShelf={onChange} />
+										<BookContainer bookData={bookData} updateShelf={onChange} />
 									</li>
 								);
 							})}

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import BookFunctionality from '../../components/BookFunctionality';
+import BookContainer from '../../components/BookContainer';
 
 export default class SearchPage extends Component {
 	render() {
@@ -47,7 +47,7 @@ export default class SearchPage extends Component {
 							? searchFilter.map((bookData) => {
 									return (
 										<li key={bookData.id}>
-											<BookFunctionality bookData={bookData} updateShelf={onChange} />
+											<BookContainer bookData={bookData} updateShelf={onChange} />
 										</li>
 									);
 							  })
