@@ -2,6 +2,8 @@
 
 Final assessment project for Udacity's React Fundamentals course.
 User lands on Shelf page with some books already assigned to the 3/4 possible shelves:
+
+```bash
 ├── Currently Reading
 ├── Want To Read
 ├── Read
@@ -12,7 +14,7 @@ As an option there is also 'none' which removes user from shelf assigned
  From search page, user is able to assign a shelf which will be reflected on landing page.
 
 ├── on mouse hover user will get a hint text and on click, user is taken to previewLink page
-
+```
 
 ## TL;DR
 
