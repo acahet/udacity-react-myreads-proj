@@ -12,6 +12,7 @@ const BookContainer = ({ bookData, updateShelf }) => {
 		<ol className="books-grid">
 			{
 				<BookInterface
+				preview={bookData.previewLink}
 					backgroundImage={bookData.imageLinks !== undefined ? bookData.imageLinks.thumbnail : noCoverImage}
 					bookTitle={bookData.title}
 					bookAuthors={bookData.authors}
