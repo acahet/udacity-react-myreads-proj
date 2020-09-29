@@ -6,7 +6,7 @@ const Book = ({ preview, backgroundImage, shelf, onChange, bookTitle, bookAuthor
 		<div className="bookshelf-books">
 			<div className="book">
 				<div className="book-top">
-					<a href={preview} title={bookTitle}>
+					<a href={preview} title="Click to visit Book Preview">
 						<div
 							className="book-cover"
 							style={{
