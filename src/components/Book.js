@@ -1,19 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
-const Book = ({ backgroundImage, shelf, onChange, bookTitle, bookAuthors }) => {
+const Book = ({ preview, backgroundImage, shelf, onChange, bookTitle, bookAuthors }) => {
 	return (
 		<div className="bookshelf-books">
 			<div className="book">
 				<div className="book-top">
-					<div
-						className="book-cover"
-						style={{
-							width: 128,
-							height: 193,
-							backgroundImage: `url(${backgroundImage})`,
-						}}
-					/>
+					<a href={preview} title={bookTitle}>
+						<div
+							className="book-cover"
+							style={{
+								width: 128,
+								height: 193,
+								backgroundImage: `url(${backgroundImage})`,
+							}}
+						/>
+					</a>
 					<div className="book-shelf-changer">
 						<select value={shelf !== undefined ? shelf : 'none'} onChange={onChange}>
 							<option value="move" disabled>
@@ -38,6 +40,6 @@ Book.propTypes = {
 	shelf: PropTypes.string,
 	onChange: PropTypes.func,
 	bookTitle: PropTypes.string,
-	bookAuthors: PropTypes.arrayOf(PropTypes.string)
-}
+	bookAuthors: PropTypes.arrayOf(PropTypes.string),
+};
 export default Book;
