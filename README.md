@@ -9,9 +9,9 @@ User lands on Shelf page with some books already assigned to the 3/4 possible sh
 ├── Read
 As an option there is also 'none' which removes user from shelf assigned
 ├── Search Page - can be accessed by  + button at the right side bottom of the page
- User is able to search by books based on author or book title.
- Books displayed no search view if no shelf is assigned will have 'none' as default
- From search page, user is able to assign a shelf which will be reflected on landing page.
+ - User is able to search by books based on author or book title.
+ - Books displayed on search view if no shelf is assigned will have 'none' as default
+ - From search page, user is able to assign a shelf which will be reflected on landing page.
 
 ├── on mouse hover user will get a hint text and on click, user is taken to previewLink page
 ```
