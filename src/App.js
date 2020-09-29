@@ -33,11 +33,9 @@ class BooksApp extends React.Component {
 						return c.id !== book.id;
 					})
 					.concat({ ...book, shelf }),
-				searchResult: currentState.searchResult
-					.filter((c) => {
-						return c.id !== book.id;
+					searchResult: currentState.searchResult.map((s) => {
+						return s.id === book.id ? {...book, shelf} : s;
 					})
-					.concat({ ...book, shelf }),
 			}));
 		});
 	};
