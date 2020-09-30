@@ -33,9 +33,9 @@ class BooksApp extends React.Component {
 						return c.id !== book.id;
 					})
 					.concat({ ...book, shelf }),
-					searchResult: currentState.searchResult.map((s) => {
-						return s.id === book.id ? {...book, shelf} : s;
-					})
+				searchResult: currentState.searchResult.map((s) => {
+					return s.id === book.id ? { ...book, shelf } : s;
+				}),
 			}));
 		});
 	};
@@ -53,7 +53,6 @@ class BooksApp extends React.Component {
 						if (hasShelf.id === books.id) {
 							//match occurs and shelf is added to book/s is search
 							books.shelf = hasShelf.shelf;
-							
 						}
 					});
 				});
