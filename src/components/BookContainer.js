@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-import BookInterface from './Book';
+import Book from './Book';
 import noCoverImage from '../icons/no-image-placeholder.png'
 
 const BookContainer = ({ bookData, updateShelf }) => {
@@ -11,7 +11,7 @@ const BookContainer = ({ bookData, updateShelf }) => {
 	return (
 		<ol className="books-grid">
 			{
-				<BookInterface
+				<Book
 				preview={bookData.previewLink}
 					backgroundImage={bookData.imageLinks !== undefined ? bookData.imageLinks.thumbnail : noCoverImage}
 					bookTitle={bookData.title}
